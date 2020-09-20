@@ -33,9 +33,9 @@ time.sleep(2.0)
 openai.api_key = "sk-LFz7fpnvWi1YX8tJwbjI9whVeG15m25RVcLOxND0" 
 with open('./prompts/gpt3prompts.txt') as file:
 	danabot = file.read()
-def get_reply(msg, training=danabot, temperature = 0.57):
+def get_reply(msg, training=danabot, temperature = 0.2):
 	prompt = training+"[[Message]]:"+msg+"\n[[Response]]:"
-	response = openai.Completion.create(engine="davinci", prompt=prompt, max_tokens=150, stop=['\n\n'])
+	response = openai.Completion.create(engine="davinci", prompt=prompt, max_tokens=30, stop=['\n\n'])
 	reply = response["choices"][0]["text"]  
 	return reply 	
 
@@ -125,6 +125,7 @@ def text_feed():
 
 				# check if the output frame is available, otherwise skip the iteration of the loop
 				if outputFrame is None: continue
+				time.sleep(5.0)
 				today = date.today()
 				d1 = today.strftime("%d/%m/%Y")
 
@@ -133,19 +134,16 @@ def text_feed():
 					"caption": get_captions(image_to_path(outputFrame)),
 					"weather": get_weather(),
 					"location": get_location(),
-					#"labels": label_detection(outputFrame),
+					#"s": label_detection(outputFrame),
 					#"ocr": ocr_detection(outputFrame)
 				} 
 				gpt3caption= get_reply(prescene["caption"] + "| " + 
 						 prescene["weather"] + "| " + 
 						 prescene["location"]  + "| " +
-						 d1
-		)
+						 d1)
+
 				scene = { 
-					"timestamp": add_timestamp(outputFrame),
 					"caption": gpt3caption,
-					"weather": get_weather(),
-					"location": get_location(),
 					#"labels": label_detection(outputFrame),
 					#"ocr": ocr_detection(outputFrame)
 				} 
@@ -155,9 +153,9 @@ def text_feed():
 		today = date.today()
 		d1 = today.strftime("%d/%m/%Y")
 		
-		return get_reply(scene["caption"] + "| " + 
-						 scene["weather"] + "| " + 
-						 scene["location"]  + "| " +
+		return get_reply(prescene["caption"] + "| " + 
+						 prescene["weather"] + "| " + 
+						 prescene["location"]  + "| " +
 						 d1
 		)
 

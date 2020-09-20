@@ -1,0 +1,14 @@
+[[Message]]: Captions: beach, people having picnic, Tents, many trees, person laying on the beach, woman wearing a blue shirt, blue and yellow umbrellas|sunny and clear, cool outside,11.21 celsius | City: Long Island, New York , Street: East Hampton Beach | DateTime: Saturday, 4 pm
+[[Response]]: On Saturday 4pm, it's a beautiful sight at the beach, with its long golden sands with the waves lapping on the shore. There's a group of people having a fun picnic enjoying their Saturday afternoon. There's a woman in purple laying on the beach ahead of you. At the beach, the feelings and experiences felt on a cool and sunny day are always fantastic. The shimmering waves of the sea that are clear and blue mirror the rays of the sun. The refreshing breeze that emanates from the seawaters is enjoyable. The beach has many palm trees. People from all over have come to the beach and set up blue and yellow umbrellas to enjoy some shade and have a good time.
+
+
+[[Message]]: Captions: train on the tracks, people standing, sky is clear, man wearing blue shirt, woman wearing purple shirt, clock is white| Weather: sunny and clear, cool outside,15 celsius| Location: Chicago, Street: Union Station Street, 60606 | DateTime: Monday, 9 am
+[[Response]]: On Monday at 9 am, it's a busy day at the Chicago Union Station. The train is waiting on the tracks for its daily passengers traveling to work. There's a big white clock at the station. Ahead of you there is a man wearing blue and a woman wearing purple, waiting for their train.
+
+
+[[Message]]: Captions: Park, children playing, children on swings, many trees | Weather: breezy, cool outside,10 celsius | City: San Francisco, Street: Golden Gate Park, 94117 |DateTime: Sunday, 5 pm
+[[Response]]: On Sunday at 5 pm, it's a relaxing day at the Golden Gate Park. There's a big park with trees, playgrounds, slides, and swings. There's a group of kids playing, some are on swings, and some are sitting on the grass. If you are lucky, you might hear their laughter. You can also see the Golden Gate Bridge from the park.
+
+
+[[Message]]: Captions: a living room, a computer monitor, a door is open, a picture of a person, brown couch, yellow pillow, a lamp on the wall, a sign on the wall, a picture on the wall | Weather: rain, cold outside, 5 celsius | City: New York, Street: 116th, 94117 |DateTime: Friday, 4 pm
+[[Response]]: On Friday at 4 pm, it's a breezy, cool day in New York City. You are in a living room with a brown couch, yellow pillow, and a lamp on the wall. There's an open door with a sign saying "Bathroom". There's a picture of a person on the wall that seems to be the owner of the house. This could be your friend's house if he or she lives on 116th Street in New York.
