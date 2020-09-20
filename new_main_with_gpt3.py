@@ -143,6 +143,10 @@ def text_feed():
 
 	return Response(generate(), mimetype = "text/event-stream")
 
+@app.route("/camera")
+def camera():
+	return render_template("camera.html")
+
 @app.route("/video_feed")
 def video_feed():
 	returnvalue, output = camera.read()
