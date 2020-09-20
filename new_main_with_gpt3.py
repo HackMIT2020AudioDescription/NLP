@@ -31,7 +31,7 @@ vs = VideoStream(src=0).start()
 import time
 time.sleep(2.0)
 openai.api_key = "sk-LFz7fpnvWi1YX8tJwbjI9whVeG15m25RVcLOxND0" 
-with open('gp3prompts.txt') as file:
+with open('./prompts/gpt3prompts.txt') as file:
 	danabot = file.read()
 def get_reply(msg, training=danabot, temperature = 0.57):
 	prompt = training+"[[Message]]:"+msg+"\n[[Response]]:"
@@ -101,9 +101,6 @@ def process_video():
 
 		# various detections
 		add_timestamp(frame)
-
-		label_detection(frame)
-
 
 		# acquire the lock, set the output frame, and release the lock
 		with lock:

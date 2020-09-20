@@ -75,6 +75,3 @@ def get_weather():
     return final_desc
 
 
-
-get_location(details)
-get_weather(details)

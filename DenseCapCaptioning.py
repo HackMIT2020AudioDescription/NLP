@@ -28,7 +28,7 @@ def get_captions(path):
 
     captions_str= ", ".join(picture_captions)
     res= "Captions: {}".format(captions_str)
-    #print(res)
+    print(res)
     return res
 
 
@@ -39,5 +39,3 @@ def get_jaccard_sim(str1, str2):
     return float(len(c)) / (len(a) + len(b) - len(c))
 
 
-captions_set= get_captions()
-print(captions_set)
