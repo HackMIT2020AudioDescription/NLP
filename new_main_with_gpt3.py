@@ -30,7 +30,7 @@ vs = VideoStream(src=0).start()
 # warmup
 import time
 time.sleep(2.0)
-openai.api_key = "sk-LFz7fpnvWi1YX8tJwbjI9whVeG15m25RVcLOxND0" 
+openai.api_key = "" 
 with open('./prompts/gpt3prompts.txt') as file:
 	danabot = file.read()
 def get_reply(msg, training=danabot, temperature = 0.2):
