@@ -1,0 +1,171 @@
+<!doctype html>
+
+<title>Audiodesc</title>
+
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<link rel="icon" href="/static/img/favicon.ico" type="image/x-icon"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins|Comfortaa">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
+<style type="text/css">
+
+  main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+	video {
+	  position: fixed;
+	  right: 0;
+	  bottom: 0;
+	  min-width: 100%; 
+	  min-height: 100%;
+	}
+
+	#options {
+		min-width: 300px;
+		display: flex;
+		background-color: red;
+		justify-content: space-around;
+		background-color: rgba(233, 219, 58, 0.4);
+		backdrop-filter: blur(5px);
+		border-radius: 15px;
+	    max-width: 300px;
+	}
+
+	#options > div {
+		padding: 17px 10px 10px 10px;
+	}
+
+	#options > div > i {
+		color: white;
+		opacity: 0.5;
+	}
+
+	#help {
+		text-align: center;
+		background-color: rgba(233, 219, 58, 0.4);
+		backdrop-filter: blur(5px);
+		width: 100%;
+		padding: 10px 0 10px 0;
+		font-weight: bold;
+	}
+
+	#voice {
+		display: flex;
+		justify-content: space-around;
+		flex-direction: column;
+	}
+
+	#audio-visualizer {
+		text-align: center;
+	}
+
+</style>
+
+<video autoplay playsinline></video>
+
+<main>
+	<div id="options">
+		<div id="share"><i class="material-icons">share</i></div>
+		<div id="recording"><i class="material-icons">videocam</i></div>
+		<div id="map" onclick="redirect('map')"><i class="material-icons">explore</i></div>
+		<div id="youtube"><i class="material-icons">youtube_searched_for</i></div>
+	</div>
+</main>
+<div id="help">Be careful of your surroundings while creating Audio Descriptions</div>
+<div id="voice">
+	<div id="audio-visualizer">
+		 <svg height="100" width="100">
+		  <circle cx="50" cy="50" r="40" fill="white" fill-opacity="0.4"/>
+		</svg> 
+	</div>
+</div>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript">
+
+    function redirect(route) {
+    	window.location = `/${route}`;
+    }
+
+	const api_key = "AIzaSyCzs0Da1Mooff-yCQA-ihTz5Z6xtfUUMBY"
+
+
+
+
+	let promises = []
+	let sentences = []
+  let description = [
+  	'Be careful of your surroundings while creating Audio Descriptions',
+  	'Double tap to listen tutorial again'
+  ]
+
+  for (text of description) {
+		let body = {
+			"audioConfig": {
+				"audioEncoding": "LINEAR16",
+				"pitch": 0,
+				"speakingRate": 1
+			},
+			"input": {
+				"text": text
+			},
+			"voice": {
+				"languageCode": "en-US",
+				"name": "en-US-Wavenet-I"
+			}
+		}
+		axios.post(`https://texttospeech.googleapis.com/v1beta1/text:synthesize?key=${api_key}`, body)
+			.then( response => {
+				let audio = new Audio(`data:audio/wav;base64,${response.data.audioContent}`)
+				sentences.push(audio)
+			})
+			.catch( error => console.log(error) )
+  }
+
+
+	const source = new EventSource("{{ url_for('text_feed') }}")
+	source.onmessage = event => {
+		data = JSON.parse(event.data.replace(/\'/g, "\""))
+		description.push(data.text)
+		console.log(description)
+
+		let body = {
+			"audioConfig": {
+				"audioEncoding": "LINEAR16",
+				"pitch": 0,
+				"speakingRate": 1
+			},
+			"input": {
+				"text": data.text
+			},
+			"voice": {
+				"languageCode": "en-US",
+				"name": "en-US-Wavenet-I"
+			}
+		}
+
+	  promises.push(
+			axios.post(`https://texttospeech.googleapis.com/v1beta1/text:synthesize?key=${api_key}`, body)
+				.then( response => {
+					let audio = new Audio(`data:audio/wav;base64,${response.data.audioContent}`)
+					audio.play()
+					sentences.push(audio)
+				})
+				.catch( error => console.log(error) )
+		  )
+	}
+
+	Promise.all(promises).then(() => {
+		for ( audio of sentences ) {
+			audio.play()
+			audio.pause()
+		}
+	})
+
+</script>

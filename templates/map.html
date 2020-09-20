@@ -1,0 +1,72 @@
+<!doctype html>
+
+<title>Audiodesc</title>
+
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<link rel="icon" href="/static/img/favicon.ico" type="image/x-icon"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins|Comfortaa">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9zSrMqSoG4L6BkT-6eH5-XOiv5lfwJTU&callback=initMap&libraries=&v=weekly"
+  defer
+></script>
+<script type="text/javascript">
+
+let map;
+
+function initMap() {
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: {
+      lat: -34.397,
+      lng: 150.644
+    },
+    zoom: 8
+  })
+  console.log(map)
+}
+
+</script>
+
+<style type="text/css">
+
+  main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+	 #voice {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+  }
+
+  #audio-visualizer {
+    text-align: center;
+  }
+
+  #map {
+    height: 100%;
+  }
+
+</style>
+
+<div id="map"></div>
+
+<main>
+	<div id="search-bar">
+		<div id="icon"></div>
+		<div id="field"></div>
+	</div>
+</main>
+<div id="voice">
+  <div id="audio-visualizer">
+     <svg height="100" width="100">
+      <circle cx="50" cy="50" r="40" fill="white" fill-opacity="0.4"/>
+    </svg> 
+  </div>
+</div>

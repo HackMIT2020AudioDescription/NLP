@@ -66,20 +66,7 @@ def ocr_detection(frame):
         #print('bounds: {}'.format(','.join(vertices)))
 	# instead of bounds top left top right have thresholds 
 	return ocrs 
-   
 
-def label_detection(frame):
-
-	global client
-
-	content = image_to_path(frame)
-
-	image = types.Image(content=content)
-
-	# Performs label detection on the image file
-	response = client.label_detection(image=image)
-	labels = response.label_annotations
-	return labels
 
 def add_timestamp(frame):
 
