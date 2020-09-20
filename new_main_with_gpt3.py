@@ -125,7 +125,6 @@ def text_feed():
 
 				# check if the output frame is available, otherwise skip the iteration of the loop
 				if outputFrame is None: continue
-				time.sleep(5.0)
 				today = date.today()
 				d1 = today.strftime("%d/%m/%Y")
 
@@ -147,41 +146,30 @@ def text_feed():
 					#"labels": label_detection(outputFrame),
 					#"ocr": ocr_detection(outputFrame)
 				} 
+				scene= [gpt3caption]
 			
 			yield f"data: {scene}\n\n"
-			time.sleep(1) 
 		today = date.today()
 		d1 = today.strftime("%d/%m/%Y")
-		
-		return get_reply(prescene["caption"] + "| " + 
-						 prescene["weather"] + "| " + 
-						 prescene["location"]  + "| " +
-						 d1
-		)
+		 
 
 
 	return Response(generate(), mimetype = "text/event-stream")
 
 @app.route("/video_feed")
 def video_feed():
+	returnvalue, output = camera.read()
 	def generate():
-
-		global outputFrame, lock
-
 		# loop over frames from the output stream
 		while True:
 
 			# wait until the lock is acquired
-			with lock:
 
-				# check if the output frame is available, otherwise skip the iteration of the loop
-				if outputFrame is None: continue
+			# encode the frame in JPEG format
+			flag, encodedImage = cv2.imencode(".jpg", output)
 
-				# encode the frame in JPEG format
-				flag, encodedImage = cv2.imencode(".jpg", outputFrame)
-
-				# ensure the frame was successfully encoded
-				if not flag: continue
+			# ensure the frame was successfully encoded
+			if not flag: continue
 
 			# yield the output frame in the byte format
 			yield b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + bytearray(encodedImage) + b'\r\n'
