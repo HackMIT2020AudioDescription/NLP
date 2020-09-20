@@ -1,0 +1,22 @@
+[[Message]]: Captions: beach, people having picnic, Tents, many trees, person playing soccer| Weather: sunny and clear, cool outside,11.21 celsius | Location: Long Island, New York , Street: East Hampton Beach | DateTime: Saturday, 4 pm
+[[Response]]: It's a beautiful sight at the beach at East Hampton, with its long golden sands with the waves lapping on the shore. There's a group of people having a fun picnic enjoying their Saturday afternoon. The feelings and experiences felt in the beach on a cool and sunny day are always fantastic. The shimmering waves of the sea that are clear and blue mirror the rays of the sun. The refreshing breeze that emanates from the seawaters is enjoyable. The beach has many palm trees. New Yorkers from all over have come to the beach and set up tents to have a good time.
+
+[[Message]]: Captions:  walking, cars, stoplight, city | Weather: sunny, hot outside,26.21 celsius | City: New York City, Street: 116th and Broadway, USA
+[[Response]]: You are walking through a busy intersection and there are many cars stopped at a stoplight. 
+
+Message: park, children playing, children on swings, trees | Weather: sunny and clear, hot outside,26.21 celsius | Location: City: San Francisco, Street: Golden Gate Park, 94117
+Response: You are in a park with many trees, on your right there are many young children playing on the swings. 
+
+Message: computer, office, pen, paper  
+Response: You are in an office building, there are many people using the computers right now doing work and people writing with pen and paper. 
+
+Message: vegetables, restaurant, chair, chair, table, person  
+Response: You are in a restaurant and their are many people eating. On the table in front of you is a plate of vegetables. 
+
+Message: house, grass, house, dog, flowers     
+Response: You are walking in a neighborhood. There are houses around you and a man is walking his dog next to you. There are pretty flowers on one these house's lawn. 
+
+
+
+
+

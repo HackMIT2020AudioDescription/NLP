@@ -1,6 +1,11 @@
 from google.cloud import vision
 import io
 from google.cloud.vision import types
+from DenseCapCaptioning import get_captions
+from geolocation import get_location, get_weather
+from datetime import date
+
+
 
 import os 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = './secret.json'
@@ -26,11 +31,11 @@ vs = VideoStream(src=0).start()
 import time
 time.sleep(2.0)
 openai.api_key = "sk-LFz7fpnvWi1YX8tJwbjI9whVeG15m25RVcLOxND0" 
-with open('hack.txt') as file:
+with open('gp3prompts.txt') as file:
 	danabot = file.read()
-def get_reply(msg, training=danabot, temperature = 0.2):
-	prompt = training+"Message: "+msg+"\nResponse:"
-	response = openai.Completion.create(engine="davinci", prompt=prompt, max_tokens=50, stop=['\n'])
+def get_reply(msg, training=danabot, temperature = 0.57):
+	prompt = training+"[[Message]]:"+msg+"\n[[Response]]:"
+	response = openai.Completion.create(engine="davinci", prompt=prompt, max_tokens=150, stop=['\n\n'])
 	reply = response["choices"][0]["text"]  
 	return reply 	
 
@@ -121,24 +126,25 @@ def text_feed():
 
 				# check if the output frame is available, otherwise skip the iteration of the loop
 				if outputFrame is None: continue
+				
 
 				scene = { 
 					"timestamp": add_timestamp(outputFrame),
-					"caption": image_to_path(outputFrame),
-					"weather": "sunny",
-					"location": "New York",
-					"labels": label_detection(outputFrame),
-					"ocr": ocr_detection(outputFrame)
+					"caption": get_captions(image_to_path(outputFrame)),
+					"weather": get_weather(),
+					"location": get_location(),
+					#"labels": label_detection(outputFrame),
+					#"ocr": ocr_detection(outputFrame)
 				} 
 
 			yield f"data: {scene}\n\n"
 			time.sleep(1) 
-		return get_reply(scene["caption"] + ", " + 
-						 scene["weather"] + ", " + 
-						 scene["objects"] + ", " + 
-						 scene["location"]  + ", " +
-						 scene["labels"] + ", " + 
-						 scene["ocr"] + ", " 
+		now = datetime.now()
+		dt_string = now.strftime("%d/%m/%Y %H")
+		return get_reply(scene["caption"] + "| " + 
+						 scene["weather"] + "| " + 
+						 scene["location"]  + "| " +
+						 dt_string
 		)
 
 
