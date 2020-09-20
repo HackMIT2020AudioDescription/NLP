@@ -16,11 +16,11 @@ import openai
 import cv2
 from imutils.video import VideoStream
 from flask import Flask, Response, render_template, jsonify
-
 outputFrame = None
 camera = cv2.VideoCapture(0)
 import threading
 lock = threading.Lock()
+
 
 app = Flask(__name__)
 
@@ -125,24 +125,40 @@ def text_feed():
 
 				# check if the output frame is available, otherwise skip the iteration of the loop
 				if outputFrame is None: continue
-				
+				today = date.today()
+				d1 = today.strftime("%d/%m/%Y")
+
+				prescene = { 
+					"timestamp": add_timestamp(outputFrame),
+					"caption": get_captions(image_to_path(outputFrame)),
+					"weather": get_weather(),
+					"location": get_location(),
+					#"labels": label_detection(outputFrame),
+					#"ocr": ocr_detection(outputFrame)
+				} 
+				gpt3caption= get_reply(prescene["caption"] + "| " + 
+						 prescene["weather"] + "| " + 
+						 prescene["location"]  + "| " +
+						 d1
+		)
 				scene = { 
-					"timestamp": "2121", #add_timestamp(outputFrame),
-					"caption": "21sdfsfsdf", #get_captions(image_to_path(outputFrame)),
-					"weather": "dfsffs", #get_weather(),
-					"location": "gfdpgdg", #get_location(),
+					"timestamp": add_timestamp(outputFrame),
+					"caption": gpt3caption,
+					"weather": get_weather(),
+					"location": get_location(),
 					#"labels": label_detection(outputFrame),
 					#"ocr": ocr_detection(outputFrame)
 				} 
 			
 			yield f"data: {scene}\n\n"
 			time.sleep(1) 
-		now = datetime.now()
-		dt_string = now.strftime("%d/%m/%Y %H")
+		today = date.today()
+		d1 = today.strftime("%d/%m/%Y")
+		
 		return get_reply(scene["caption"] + "| " + 
 						 scene["weather"] + "| " + 
 						 scene["location"]  + "| " +
-						 dt_string
+						 d1
 		)
 
 
