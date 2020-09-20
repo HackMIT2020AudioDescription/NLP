@@ -18,7 +18,7 @@ from imutils.video import VideoStream
 from flask import Flask, Response, render_template, jsonify
 
 outputFrame = None
-
+camera = cv2.VideoCapture(0)
 import threading
 lock = threading.Lock()
 
@@ -42,10 +42,11 @@ def get_reply(msg, training=danabot, temperature = 0.57):
 def image_to_path(frame):
 	flag, encodedImage = cv2.imencode(".jpg", frame)
 	file_name = 'image.jpg'
+	returnvalue, encodedImage = camera.read()
 	cv2.imwrite(file_name, encodedImage)
-	with io.open(file_name, 'rb') as image_file:
-		content = image_file.read()
-	return content 
+	#with io.open(file_name, 'rb') as image_file:
+		#content = image_file.read()
+	return  './'+file_name
 
 def image_caption(frame):
 	return "a dog walked around the person"
@@ -117,6 +118,7 @@ def text_feed():
 
 		# loop over frames from the output stream
 		while True:
+			print(get_captions(image_to_path(outputFrame)))
 
 			# wait until the lock is acquired
 			with lock:
@@ -124,16 +126,15 @@ def text_feed():
 				# check if the output frame is available, otherwise skip the iteration of the loop
 				if outputFrame is None: continue
 				
-
 				scene = { 
-					"timestamp": add_timestamp(outputFrame),
-					"caption": get_captions(image_to_path(outputFrame)),
-					"weather": get_weather(),
-					"location": get_location(),
+					"timestamp": "2121", #add_timestamp(outputFrame),
+					"caption": "21sdfsfsdf", #get_captions(image_to_path(outputFrame)),
+					"weather": "dfsffs", #get_weather(),
+					"location": "gfdpgdg", #get_location(),
 					#"labels": label_detection(outputFrame),
 					#"ocr": ocr_detection(outputFrame)
 				} 
-
+			
 			yield f"data: {scene}\n\n"
 			time.sleep(1) 
 		now = datetime.now()
