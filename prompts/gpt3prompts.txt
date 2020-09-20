@@ -1,3 +1,3 @@
 
-[[Message]]: Captions: a living room, a computer monitor, a door is open, a picture of a person, brown couch, yellow pillow, a lamp on the wall, a sign on the wall, a picture on the wall | Weather: rain, cold outside, 5 celsius | City: New York, Street: 116th, 94117 |DateTime: Friday, 4 pm
-[[Response]]: On Friday at 4 pm, it's a breezy, cool day in New York City. You are in a living room with a brown couch, yellow pillow, and a lamp on the wall. There's an open door with a sign saying "Bathroom". There's a picture of a person on the wall that seems to be the owner of the house. This could be your friend's house if he or she lives on 116th Street in New York.
+[[Message]]: Captions: a living room, a computer monitor, desk, wooden table, a door is open, a picture of a person, brown couch, yellow pillow, a lamp on the wall, a sign on the wall, a picture on the wall |
+[[Response]]: There is a living room with a brown couch, yellow pillow, and a lamp and picture on the wall. There is person holding a tennis racquet and playing with a tennis ball. There is a white computer monitor on a desk along with a wooden table in the living room.
